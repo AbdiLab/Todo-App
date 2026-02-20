@@ -2,7 +2,7 @@ import "./styles.css";
 import bgDesktopLight from "./assets/images/bg-desktop-light.jpg";
 import bgDesktopDark from "./assets/images/bg-desktop-dark.jpg";
 import bgMobileLight from "./assets/images/bg-mobile-light.jpg";
-import bgMobieDark from "./assets/images/bg-mobile-dark.jpg";
+import bgMobileDark from "./assets/images/bg-mobile-dark.jpg";
 import useThemes from "./hooks/useTheme";
 import { useEffect, type ReactNode, type SyntheticEvent } from "react";
 import useFilterState, { type FilterState } from "./hooks/useFilterState";
@@ -22,10 +22,14 @@ export default function App() {
   function hanldeForm(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const input = inputTextRef.current!;
-    const inputCheckbox = inputCheckboxRef.current!;
+    const input = inputTextRef.current;
+    const inputCheckbox = inputCheckboxRef.current;
 
-    if (inputTextRef == null || input.value === "") alert("the input is empty");
+    if (!inputCheckbox) return;
+    if (!input || input.value.trim() === "") {
+      alert("the input is empty");
+      return;
+    }
 
     dispatch({
       type: "ADD_TODO",
@@ -131,7 +135,7 @@ export default function App() {
       <div className="background-image-container">
         <picture>
           <source media="(min-width:376px )" srcSet={isDarkMode ? bgDesktopDark : bgDesktopLight} />
-          <img src={isDarkMode ? bgMobieDark : bgMobileLight} />
+          <img src={isDarkMode ? bgMobileDark : bgMobileLight} />
         </picture>
       </div>
     </>

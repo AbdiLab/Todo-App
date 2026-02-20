@@ -8,14 +8,14 @@ export default function useFilteredList(state: FilterState, todos: Todo[]) {
       case "All":
         return todos;
       case "Active":
-        return todos.filter((todo) => todo.isCompleted == false);
+        return todos.filter((todo) => todo.isCompleted === false);
       case "Completed":
-        return todos.filter((todo) => todo.isCompleted == true);
+        return todos.filter((todo) => todo.isCompleted === true);
       default:
         const _exhaustiveCheck: never = state;
         return _exhaustiveCheck;
     }
-  }, [todos]);
+  }, [todos, state]);
 
   const activeTodoLength = useMemo(() => {
     return todos.filter((todo) => todo.isCompleted === false).length;
